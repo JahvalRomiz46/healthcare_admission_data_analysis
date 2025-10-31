@@ -26,7 +26,7 @@ FROM healthcare
 GROUP BY Age_Category
 ORDER BY 2 DESC;
 
-# Cek Rata-rata tagihan berdasarkan kategori umur
+# Cek Rata-rata lama inap berdasarkan kategori umur
 SELECT Age_Category, AVG(Length_of_Stay) AS Avg_Length_of_Stay
 FROM healthcare
 GROUP BY Age_Category
@@ -76,14 +76,12 @@ GROUP BY Stay_Range
 ORDER BY 2 DESC;
 
 
-
-
 # Evaluasi Efektivitas Pengobatan
 SELECT Medical_Condition, Medication, Test_Results, COUNT(Medication) AS Cnt
 FROM healthcare
 GROUP BY Medical_Condition, Medication, Test_Results
 ORDER BY 1, 2, 4 DESC;
--- BELOM SELESAI --
+--  Tidak bisa disimpulkan --
 
 # Mayoritas Kondisi Sakit para Pasien berdasarkan Kategori Umur
 SELECT Age_Category, Medical_Condition, COUNT(Medical_Condition) AS Total_Patient
