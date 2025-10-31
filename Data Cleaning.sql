@@ -40,14 +40,14 @@ RENAME COLUMN `Discharge Date` TO Discharge_Date,
 RENAME COLUMN `Test Results` TO Test_Results;
 
 
-# STANDARDIZE KOLOM NAMA
+# INKONSISTENSI KOLOM NAMA
 -- Ubah jadi Kapital awal saja
 UPDATE healthcare
 SET `Name` = CONCAT(UPPER(SUBSTRING(`Name`, 1,1)), LOWER(SUBSTRING(`Name`, 2)));
 
 SELECT * FROM healthcare;
 
-# STANDARDIZE KOLOM HOSPITAL
+# INKONSISTENSI KOLOM HOSPITAL
 -- Cek Spelling Error
 SELECT DISTINCT Hospital FROM healthcare ORDER BY Hospital;
 
@@ -75,7 +75,7 @@ ORDER BY Hospital ASC;
 
 SELECT * FROM healthcare;
 
-# STANDARDIZE KOLOM INSURANCE PROVIDER
+# INKONSISTENSI KOLOM INSURANCE PROVIDER
 -- Cek spelling
 SELECT DISTINCT Insurance_Provider
 FROM healthcare;
@@ -85,6 +85,7 @@ FROM healthcare;
 SELECT DISTINCT Admission_Type FROM healthcare;
 SELECT DISTINCT Medication FROM healthcare;
 SELECT DISTINCT Test_Results FROM healthcare;
+
 
 # CEK DUPLIKASI
 SELECT
@@ -100,14 +101,12 @@ HAVING
     COUNT(*) > 1 
 ORDER BY 1;
 
-
 -- Cek kebenaran duplikasi
 SELECT *
 FROM healthcare
 WHERE Name = 'Aaron lee'
   AND Date_of_Admission = '2020-07-09';
 /* Setelah dicek ternyata banyak baris yang terdapat duplikasi yang persis kecuali di kolom Age, yang mungkin karna entri data ulang untuk perbaikan nilai Age */
-
 
 -- Cek min & max umur dari baris yang duplikat
 SELECT
@@ -148,7 +147,6 @@ INNER JOIN (
 SET
     t1.Age = t2.Age; 
 
-
 # HAPUS SEMUA BARIS DUPLIKAT
 -- Buat table baru sementara
 CREATE TABLE healthcare_cleaned AS
@@ -158,6 +156,7 @@ DROP TABLE healthcare;
 -- Ganti table cleaned ke nama asli
 ALTER TABLE healthcare_cleaned 
 RENAME TO healthcare;
+
 
 # CEK TIPE DATA
 DESCRIBE healthcare;
